@@ -224,60 +224,120 @@ const Orders: React.FC = () => {
         <p>Showing {filteredOrders.length} of {orders.length} orders</p>
       </div>
 
-      <table className="data-table">
-        <thead>
-          <tr>
-            <th>Customer</th>
-            <th>Items</th>
-            <th>Total</th>
-            <th>Status</th>
-            <th>Wilaya</th>
-            <th>Commune</th>
-            <th>Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredOrders.length === 0 ? (
-            <tr><td colSpan={8}>No orders found</td></tr>
-          ) : (
-            filteredOrders.map((order: Order) => (
-              <tr key={order.id}>
-                <td>{order.customer_name}</td>
+      {/* Desktop Table View */}
+      <div className="hidden md:block">
+        <table className="data-table">
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Items</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Wilaya</th>
+              <th>Commune</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredOrders.length === 0 ? (
+              <tr><td colSpan={8}>No orders found</td></tr>
+            ) : (
+              filteredOrders.map((order: Order) => (
+                <tr key={order.id}>
+                  <td>{order.customer_name}</td>
 
-                <td
-                  className="items-click"
-                  onClick={() => setSelectedItems(order.items)}
-                  style={{ cursor: 'pointer', textDecoration: 'underline' }}
-                >
-                  {getItemCount(order.items)}
-                </td>
-
-                <td>${parseFloat(order.total.toString()).toFixed(2)}</td>
-                <td>
-                  <span className={`status-badge ${getStatusClass(order.status)}`}>
-                    {order.status}
-                  </span>
-                </td>
-
-                <td>{order.shipping_address?.wilaya || 'N/A'}</td>
-                <td>{order.shipping_address?.commune || 'N/A'}</td>
-
-                <td>{formatDate(order.created_at)}</td>
-
-                <td>
-                  <button
-                    className="btn-delete"
-                    onClick={() => handleDelete(order.id)}
+                  <td
+                    className="items-click"
+                    onClick={() => setSelectedItems(order.items)}
+                    style={{ cursor: 'pointer', textDecoration: 'underline' }}
                   >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+                    {getItemCount(order.items)}
+                  </td>
+
+                  <td>${parseFloat(order.total.toString()).toFixed(2)}</td>
+                  <td>
+                    <span className={`status-badge ${getStatusClass(order.status)}`}>
+                      {order.status}
+                    </span>
+                  </td>
+
+                  <td>{order.shipping_address?.wilaya || 'N/A'}</td>
+                  <td>{order.shipping_address?.commune || 'N/A'}</td>
+
+                  <td>{formatDate(order.created_at)}</td>
+
+                  <td>
+                    <button
+                      className="btn-delete"
+                      onClick={() => handleDelete(order.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Mobile Card View */}
+      <div className="md:hidden space-y-4">
+        {filteredOrders.length === 0 ? (
+          <div className="text-center py-8 text-gray-500">No orders found</div>
+        ) : (
+          filteredOrders.map((order: Order) => (
+            <div key={order.id} className="mobile-order-card">
+              <div className="mobile-order-header">
+                <div className="mobile-order-customer">
+                  <h3>{order.customer_name}</h3>
+                  <span className="mobile-order-date">{formatDate(order.created_at)}</span>
+                </div>
+                <span className={`status-badge ${getStatusClass(order.status)}`}>
+                  {order.status}
+                </span>
+              </div>
+
+              <div className="mobile-order-details">
+                <div className="mobile-order-row">
+                  <span className="mobile-order-label">Items:</span>
+                  <span 
+                    className="mobile-order-value items-click"
+                    onClick={() => setSelectedItems(order.items)}
+                    style={{ cursor: 'pointer', textDecoration: 'underline', color: '#3b82f6' }}
+                  >
+                    {getItemCount(order.items)} items
+                  </span>
+                </div>
+
+                <div className="mobile-order-row">
+                  <span className="mobile-order-label">Total:</span>
+                  <span className="mobile-order-value mobile-order-total">
+                    ${parseFloat(order.total.toString()).toFixed(2)}
+                  </span>
+                </div>
+
+                <div className="mobile-order-row">
+                  <span className="mobile-order-label">Location:</span>
+                  <span className="mobile-order-value">
+                    {order.shipping_address?.wilaya || 'N/A'}, {order.shipping_address?.commune || 'N/A'}
+                  </span>
+                </div>
+              </div>
+
+              <div className="mobile-order-actions">
+                <button
+                  className="btn-delete mobile-delete-btn"
+                  onClick={() => handleDelete(order.id)}
+                >
+                  Delete Order
+                </button>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
 
       {/* Popup Modal */}
       {selectedItems && (

@@ -187,6 +187,135 @@
   opacity: 0.7;
 }
 
+/* Mobile Order Cards */
+.mobile-order-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.mobile-order-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.mobile-order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.mobile-order-customer h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.mobile-order-date {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.mobile-order-details {
+  margin-bottom: 1rem;
+}
+
+.mobile-order-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f9fafb;
+}
+
+.mobile-order-row:last-child {
+  border-bottom: none;
+}
+
+.mobile-order-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.mobile-order-value {
+  font-size: 0.875rem;
+  color: #374151;
+  font-weight: 500;
+  text-align: right;
+  max-width: 60%;
+  word-break: break-word;
+}
+
+.mobile-order-total {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #059669;
+}
+
+.mobile-order-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 0.75rem;
+  border-top: 1px solid #f3f4f6;
+}
+
+.mobile-delete-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border-radius: 8px;
+  min-width: auto;
+}
+
+/* Responsive adjustments for filters */
+@media (max-width: 768px) {
+  .filters-panel {
+    padding: 1rem;
+  }
+
+  .filters-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .table-header {
+    padding: 1rem;
+  }
+
+  .table-info {
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn-filter {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Status badge adjustments for mobile */
+@media (max-width: 768px) {
+  .status-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    white-space: nowrap;
+  }
+}
 
 @media (max-width: 768px) {
   .table-header {
