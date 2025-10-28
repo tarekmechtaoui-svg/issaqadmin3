@@ -6,6 +6,7 @@
   flex-direction: column;
   min-height: 100vh;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  justify-content: space-between;
 }
 
 .sidebar-header {
@@ -77,6 +78,34 @@
 
 .nav-label {
   font-weight: 500;
+}
+
+.sidebar-footer {
+  padding: 1.5rem 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logout-button {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  width: 100%;
+}
+
+.logout-button:hover {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #fecaca;
+  transform: translateX(4px);
 }
 
 @media (max-width: 768px) {

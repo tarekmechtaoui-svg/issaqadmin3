@@ -1,35 +1,44 @@
-import { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { CartProvider } from './context/CartContext';
-import { Home } from './pages/Home';
-import { Products } from './pages/Products';
-import { ProductDetail } from './pages/ProductDetail';
-import { Cart } from './pages/Cart';
-import { Checkout } from './pages/Checkout';
+import { useState, useEffect } from 'react';
+import { supabase } from './lib/supabase';
 import Login from './components/login';
+import Dashboard from './Dashboard';
 
 function App() {
- 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-    console.log("isAuthenticated:", isAuthenticated);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setIsAuthenticated(!!session);
+      setLoading(false);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      (async () => {
+        setIsAuthenticated(!!session);
+      })();
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="text-lg text-gray-600">Loading...</div>
+      </div>
+    );
+  }
+
   return (
-    <BrowserRouter>
+    <>
       {!isAuthenticated ? (
         <Login onLogin={() => setIsAuthenticated(true)} />
       ) : (
-        <CartProvider>
-          <div className="flex flex-col min-h-screen">
-            
-           
-          </div>
-        </CartProvider>
+        <Dashboard />
       )}
-    </BrowserRouter>
-    
+    </>
   );
-   
- 
-
 }
 
 export default App;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { MenuItem } from '../types';
+import { supabase } from '../lib/supabase';
 import '../styles/Sidebar.css';
 
 interface SidebarProps {
@@ -14,6 +15,10 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
     { key: 'products', label: 'Products', icon: '🛍️' },
     { key: 'categories', label: 'Categories', icon: '📑' }
   ];
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
 
   return (
     <div className="sidebar">
@@ -32,6 +37,15 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
           </button>
         ))}
       </nav>
+      <div className="sidebar-footer">
+        <button
+          onClick={handleLogout}
+          className="logout-button"
+        >
+          <span className="nav-icon">🚪</span>
+          <span className="nav-label">Logout</span>
+        </button>
+      </div>
     </div>
   );
 };
